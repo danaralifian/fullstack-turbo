@@ -1,5 +1,5 @@
 import { combineReducers } from "@reduxjs/toolkit";
-import { Action, Reducer } from "redux";
+import { Reducer } from "redux";
 import IUserState from "@repo/interfaces/states/user";
 import ActionTypes from "../constants/action-types";
 import IUser from "@repo/interfaces/models/user";

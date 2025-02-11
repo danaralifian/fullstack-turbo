@@ -9,9 +9,17 @@ const logger = createLogger({
   diff: true, // Show the difference between the previous and next state
 });
 
+const isProduction = process.env.NODE_ENV === "production";
+
 const store = configureStore({
   reducer: rootReducer,
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger), // Add logger to the middleware
+  middleware: (getDefaultMiddleware) => {
+    const middleware = getDefaultMiddleware();
+    if (!isProduction) {
+      middleware.push(logger);
+    }
+    return middleware;
+  }, // Add logger to the middleware
 });
 
 export type RootState = ReturnType<typeof store.getState>;

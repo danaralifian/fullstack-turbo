@@ -4,10 +4,15 @@ export function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
   const token = req.cookies.get(
     process.env.NEXT_PUBLIC_COOKIE_TOKEN_NAME || ""
-  )?.value; // Example: Get auth token from cookies
+  )?.value;
+
+  // If logged in, redirect away from login page
+  if (token && pathname === "/login") {
+    return NextResponse.redirect(new URL("/", req.url));
+  }
 
   // Redirect to login if user is not authenticated
-  if (!token && pathname.startsWith("/dashboard")) {
+  if (!token) {
     return NextResponse.redirect(new URL("/login", req.url));
   }
 
@@ -17,5 +22,5 @@ export function middleware(req: NextRequest) {
 
 // Match specific routes where the middleware should run
 export const config = {
-  matcher: ["/dashboard/:path*", "/profile/:path*"], // Apply middleware to dashboard and profile pages
+  matcher: ["/"], // Apply middleware to dashboard and profile pages
 };
