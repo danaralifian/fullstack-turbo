@@ -19,7 +19,8 @@ const userReducer: Reducer<IUserState> = (
   action: any
 ): IUserState => {
   switch (action.type) {
-    case ActionTypes.User.USER_FETCH_REQUEST: {
+    case ActionTypes.User.USER_FETCH_REQUEST:
+    case ActionTypes.User.USER_UPDATE_REQUEST: {
       return {
         ...state,
         loading: true,
@@ -34,7 +35,19 @@ const userReducer: Reducer<IUserState> = (
         list: data,
       };
     }
-    case ActionTypes.User.USER_FETCH_FAILURE: {
+    case ActionTypes.User.USER_UPDATE_SUCCESS: {
+      const { data } = action.payload;
+      console.log(action.payload, "reducer");
+      return {
+        ...state,
+        loading: false,
+        list: state.list
+          .filter((user: IUser) => user.id !== data.id)
+          .concat(data),
+      };
+    }
+    case ActionTypes.User.USER_FETCH_FAILURE:
+    case ActionTypes.User.USER_UPDATE_FAILURE: {
       return {
         ...state,
         loading: false,

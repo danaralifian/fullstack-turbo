@@ -1,32 +1,22 @@
 "use client"
 
 import type React from "react"
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from "@mui/material"
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, CircularProgress, Grid } from "@mui/material"
 import { useDispatch, useSelector } from 'react-redux';
 import { Button } from "../atoms/Button"
 import { useEffect } from "react"
 import { fetchUser } from "../../store/action"
 import { AppDispatch, RootState } from "../../store/store";
-
-interface User {
-    id: number
-    name: string
-    email: string
-}
+import IUser from "@repo/interfaces/models/user";
+import IUserState from "@repo/interfaces/states/user";
 
 interface UserTableProps {
-    users: User[]
-    onEdit: (user: User) => void
+    onEdit: (user: IUser) => void
+    user: IUserState
 }
 
 
-export const UserTable: React.FC<UserTableProps> = ({ users, onEdit }) => {
-    const dispatch = useDispatch<AppDispatch>();
-    const { loading, data, error, list } = useSelector((state: RootState) => state.user);
-
-    useEffect(() => {
-        dispatch(fetchUser()); // Call the action on component mount
-    }, [])
+export const UserTable: React.FC<UserTableProps> = ({ user, onEdit }) => {
 
     return (
         <TableContainer component={Paper}>
@@ -40,16 +30,22 @@ export const UserTable: React.FC<UserTableProps> = ({ users, onEdit }) => {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {list?.map((user) => (
-                        <TableRow key={user.id}>
-                            <TableCell>{user.name}</TableCell>
-                            <TableCell>{user.email}</TableCell>
-                            <TableCell>{user.age}</TableCell>
-                            <TableCell>
-                                <Button onClick={() => onEdit(user)}>Edit</Button>
+                    {user.loading ?
+                        <TableRow>
+                            <TableCell colSpan={4} align="center">
+                                <CircularProgress />
                             </TableCell>
-                        </TableRow>
-                    ))}
+                        </TableRow> :
+                        user?.list?.map((user) => (
+                            <TableRow key={user.id}>
+                                <TableCell>{user.name}</TableCell>
+                                <TableCell>{user.email}</TableCell>
+                                <TableCell>{user.age}</TableCell>
+                                <TableCell>
+                                    <Button onClick={() => onEdit(user)}>Edit</Button>
+                                </TableCell>
+                            </TableRow>
+                        ))}
                 </TableBody>
             </Table>
         </TableContainer>

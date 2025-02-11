@@ -1,30 +1,30 @@
 "use client"
 
 import type React from "react"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Container, Typography, Box } from "@mui/material"
 import { UserTable } from "../organisms/UserTable"
 import { EditUserModal } from "../organisms/EditUserModal"
-
-interface User {
-    id: number
-    name: string
-    email: string
-}
+import IUser from "@repo/interfaces/models/user"
+import { useDispatch, useSelector } from "react-redux"
+import { AppDispatch, RootState } from "../../store/store"
+import { fetchUser, updateUser } from "../../store/action"
 
 export const UserListTemplate: React.FC = () => {
-    const [users, setUsers] = useState<User[]>([
-        { id: 1, name: "John Doe", email: "john@example.com" },
-        { id: 2, name: "Jane Smith", email: "jane@example.com" },
-    ])
-    const [editingUser, setEditingUser] = useState<User | null>(null)
+    const [editingUser, setEditingUser] = useState<IUser | null>(null)
+    const dispatch = useDispatch<AppDispatch>();
+    const userState = useSelector((state: RootState) => state.user);
 
-    const handleEdit = (user: User) => {
+    useEffect(() => {
+        dispatch(fetchUser()); // Call the action on component mount
+    }, [])
+
+    const handleEdit = (user: IUser) => {
         setEditingUser(user)
     }
 
-    const handleSave = (updatedUser: User) => {
-        setUsers(users.map((user) => (user.id === updatedUser.id ? updatedUser : user)))
+    const handleSave = (updatedUser: IUser) => {
+        dispatch(updateUser(updatedUser))
         setEditingUser(null)
     }
 
@@ -34,7 +34,7 @@ export const UserListTemplate: React.FC = () => {
                 <Typography variant="h4" component="h1" gutterBottom>
                     User List
                 </Typography>
-                <UserTable users={users} onEdit={handleEdit} />
+                <UserTable user={userState} onEdit={handleEdit} />
                 <EditUserModal user={editingUser} onClose={() => setEditingUser(null)} onSave={handleSave} />
             </Box>
         </Container>

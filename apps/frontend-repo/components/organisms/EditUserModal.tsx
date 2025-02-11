@@ -1,33 +1,36 @@
 "use client"
 
 import type React from "react"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Modal, Box, Typography } from "@mui/material"
 import { Input } from "../atoms/Input"
 import { Button } from "../atoms/Button"
-
-interface User {
-    id: number
-    name: string
-    email: string
-}
+import IUser from "@repo/interfaces/models/user"
 
 interface EditUserModalProps {
-    user: User | null
+    user: IUser | null
     onClose: () => void
-    onSave: (user: User) => void
+    onSave: (user: IUser) => void
 }
 
 export const EditUserModal: React.FC<EditUserModalProps> = ({ user, onClose, onSave }) => {
-    const [name, setName] = useState(user?.name || "")
-    const [email, setEmail] = useState(user?.email || "")
+    const [userData, setUserData] = useState<IUser | null>(user)
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
-        if (user) {
-            onSave({ ...user, name, email })
-        }
+        if (userData) onSave(userData)
         onClose()
+    }
+
+    useEffect(() => {
+        setUserData(user)
+    }, [user])
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setUserData({
+            ...user,
+            [e.target.name]: e.target.value
+        } as IUser)
     }
 
     if (!user) return null
@@ -51,10 +54,13 @@ export const EditUserModal: React.FC<EditUserModalProps> = ({ user, onClose, onS
                 </Typography>
                 <form onSubmit={handleSubmit}>
                     <Box mb={2}>
-                        <Input label="Name" value={name} onChange={(e) => setName(e.target.value)} fullWidth />
+                        <Input label="Name" name="name" defaultValue={user?.name} onChange={handleChange} fullWidth />
                     </Box>
                     <Box mb={2}>
-                        <Input label="Email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} fullWidth />
+                        <Input label="Age" name="age" type="number" defaultValue={user?.age} onChange={handleChange} fullWidth />
+                    </Box>
+                    <Box mb={2}>
+                        <Input label="Email" name="email" type="email" defaultValue={user?.email} onChange={handleChange} fullWidth />
                     </Box>
                     <Box display="flex" justifyContent="flex-end" gap={1}>
                         <Button onClick={onClose} color="secondary">
