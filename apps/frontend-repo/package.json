@@ -11,17 +11,29 @@
     "check-types": "tsc --noEmit"
   },
   "dependencies": {
+    "@firebase/app": "^0.11.0",
+    "@firebase/auth": "^1.9.0",
+    "@firebase/firestore": "^4.7.7",
+    "@mui/material": "^6.4.3",
+    "@reduxjs/toolkit": "^2.5.1",
     "@repo/ui": "*",
+    "firebase": "^11.3.0",
+    "js-cookie": "^3.0.5",
     "next": "^15.1.6",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "react-redux": "^9.2.0",
+    "redux": "^5.0.1",
+    "redux-logger": "^3.0.6"
   },
   "devDependencies": {
     "@repo/eslint-config": "*",
     "@repo/typescript-config": "*",
+    "@types/js-cookie": "^3.0.6",
     "@types/node": "^22",
     "@types/react": "19.0.8",
     "@types/react-dom": "19.0.3",
+    "@types/redux-logger": "^3.0.13",
     "eslint": "^9.19.0",
     "typescript": "5.7.3"
   }
