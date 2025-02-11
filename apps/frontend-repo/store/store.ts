@@ -1,4 +1,3 @@
-"use client";
 import { configureStore } from "@reduxjs/toolkit";
 import { createLogger } from "redux-logger";
 import rootReducer from "./reducer";

@@ -1,0 +1,12 @@
+{
+  "extends": "@repo/typescript-config/react-library.json",
+  "compilerOptions": {
+    "outDir": "dist",
+    "moduleResolution": "node16"
+  },
+  "include": ["./"],
+  "exclude": ["node_modules", "dist"],
+  "paths": {
+    "@repo/interfaces": ["./src/interfaces"]
+  }
+}

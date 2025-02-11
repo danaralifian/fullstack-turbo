@@ -1,20 +1,56 @@
-export const INCREMENT = "INCREMENT";
-export const DECREMENT = "DECREMENT";
+import { Dispatch } from "redux";
+import user from "../apis/user";
+import ActionTypes from "../constants/action-types";
+import IUser from "@repo/interfaces/models/user";
+import { AppDispatch } from "./store";
+import { FirebaseError } from "@firebase/app";
 
-export const increment = () => ({
-  type: INCREMENT,
-});
+function isErrorFirebaseError(error: unknown): error is FirebaseError {
+  return error instanceof FirebaseError;
+}
 
-export const decrement = () => ({
-  type: DECREMENT,
-});
-
-// Example of an async action using redux-thunk
-export const fetchData = () => {
-  return async (dispatch: any) => {
-    const response = await fetch("https://api.example.com/data");
+const fetchUser = () => async (dispatch: AppDispatch) => {
+  dispatch({ type: ActionTypes.User.USER_FETCH_REQUEST });
+  try {
+    const response = await user.fetchUser();
     const data = await response.json();
-    // Dispatch an action with the fetched data
-    dispatch({ type: "FETCH_DATA_SUCCESS", payload: data });
-  };
+    if (isErrorFirebaseError(data))
+      dispatch({
+        type: ActionTypes.User.USER_FETCH_FAILURE,
+        payload: { error: (data as FirebaseError).message },
+      });
+    else
+      dispatch({
+        type: ActionTypes.User.USER_FETCH_SUCCESS,
+        payload: { data },
+      });
+  } catch (error) {
+    dispatch({
+      type: ActionTypes.User.USER_FETCH_FAILURE,
+      payload: error,
+    });
+  }
 };
+
+const updateUser = (userData: IUser) => async (dispatch: AppDispatch) => {
+  dispatch({ type: ActionTypes.User.USER_UPDATE_REQUEST });
+  try {
+    const response = await user.updateUser(userData);
+    const data = await response.json();
+    dispatch({ type: ActionTypes.User.USER_UPDATE_SUCCESS, payload: data });
+    if (isErrorFirebaseError(data))
+      dispatch({
+        type: ActionTypes.User.USER_FETCH_FAILURE,
+        payload: { error: (data as FirebaseError).message },
+      });
+    else
+      dispatch({
+        type: ActionTypes.User.USER_FETCH_SUCCESS,
+        payload: { data },
+      });
+  } catch (error) {
+    dispatch({ type: ActionTypes.User.USER_UPDATE_FAILURE, payload: error });
+  }
+};
+
+export { fetchUser, updateUser };

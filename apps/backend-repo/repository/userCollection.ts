@@ -1,5 +1,5 @@
+import IUser from "@repo/interfaces/models/user";
 import { db } from "../config/firebaseConfig";
-import { IUser } from "../entities/user";
 import { auth } from "firebase-admin";
 
 export const userCollection = {

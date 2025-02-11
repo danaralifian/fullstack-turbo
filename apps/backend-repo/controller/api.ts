@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { userCollection } from "../repository/userCollection";
-import { IUser } from "../entities/user";
+import IUser from "@repo/interfaces/models/user";
 
 const checkEmailPassword = (email: string, password: string, res: Response) => {
   // check body for email and password
