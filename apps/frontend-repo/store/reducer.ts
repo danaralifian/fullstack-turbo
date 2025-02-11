@@ -37,7 +37,6 @@ const userReducer: Reducer<IUserState> = (
     }
     case ActionTypes.User.USER_UPDATE_SUCCESS: {
       const { data } = action.payload;
-      console.log(action.payload, "reducer");
       return {
         ...state,
         loading: false,
