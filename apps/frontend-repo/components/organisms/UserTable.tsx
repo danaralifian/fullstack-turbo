@@ -23,6 +23,7 @@ export const UserTable: React.FC<UserTableProps> = ({ user, onEdit }) => {
                         <TableCell>Total Avg Weight Ratings</TableCell>
                         <TableCell>Number Of Rent</TableCell>
                         <TableCell>Recently Active</TableCell>
+                        <TableCell>Actions</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
