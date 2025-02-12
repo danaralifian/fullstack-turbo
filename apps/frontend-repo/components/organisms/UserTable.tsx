@@ -20,9 +20,9 @@ export const UserTable: React.FC<UserTableProps> = ({ user, onEdit }) => {
                 <TableHead>
                     <TableRow>
                         <TableCell>Name</TableCell>
-                        <TableCell>Email</TableCell>
-                        <TableCell>Age</TableCell>
-                        <TableCell>Actions</TableCell>
+                        <TableCell>Total Avg Weight Ratings</TableCell>
+                        <TableCell>Number Of Rent</TableCell>
+                        <TableCell>Recently Active</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -35,8 +35,9 @@ export const UserTable: React.FC<UserTableProps> = ({ user, onEdit }) => {
                         user?.list?.map((user) => (
                             <TableRow key={user.id}>
                                 <TableCell>{user.name}</TableCell>
-                                <TableCell>{user.email}</TableCell>
-                                <TableCell>{user.age}</TableCell>
+                                <TableCell>{user.totalAverageWeightRatings}</TableCell>
+                                <TableCell>{user.numberOfRents}</TableCell>
+                                <TableCell>{user.recentlyActive}</TableCell>
                                 <TableCell>
                                     <Button onClick={() => onEdit(user)}>Edit</Button>
                                 </TableCell>

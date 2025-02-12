@@ -57,10 +57,13 @@ export const EditUserModal: React.FC<EditUserModalProps> = ({ user, onClose, onS
                         <Input label="Name" name="name" defaultValue={user?.name} onChange={handleChange} fullWidth />
                     </Box>
                     <Box mb={2}>
-                        <Input label="Age" name="age" type="number" defaultValue={user?.age} onChange={handleChange} fullWidth />
+                        <Input label="Total Avg Weight Ratings" name="totalAverageWeightRatings" type="number" defaultValue={user?.totalAverageWeightRatings} onChange={handleChange} fullWidth />
                     </Box>
                     <Box mb={2}>
-                        <Input label="Email" name="email" type="email" defaultValue={user?.email} onChange={handleChange} fullWidth />
+                        <Input label="Number Of Rent" name="numberOfRents" type="number" defaultValue={user?.numberOfRents} onChange={handleChange} fullWidth />
+                    </Box>
+                    <Box mb={2}>
+                        <Input label="Recently Active" name="recentlyActive" type="number" defaultValue={user?.recentlyActive} onChange={handleChange} fullWidth />
                     </Box>
                     <Box display="flex" justifyContent="flex-end" gap={1}>
                         <Button onClick={onClose} color="secondary">

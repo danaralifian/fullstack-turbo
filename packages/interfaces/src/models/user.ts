@@ -1,7 +1,8 @@
 interface IUser {
-  id: any;
+  id: string;
   name: string;
-  email: string;
-  age: number;
+  totalAverageWeightRatings: number;
+  numberOfRents: number;
+  recentlyActive: number;
 }
 export default IUser;
