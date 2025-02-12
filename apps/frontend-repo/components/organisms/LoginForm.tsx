@@ -20,7 +20,6 @@ export const LoginForm: React.FC = () => {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
-        // Handle login logic here
         try {
             const user = await loginWithEmailPassword(value.email, value.password);
             const token = await user.getIdToken()

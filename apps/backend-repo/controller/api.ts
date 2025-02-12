@@ -45,14 +45,12 @@ export const fetchUser = async (req: Request, res: Response) => {
 export const register = async (req: Request, res: Response) => {
   const { email, password } = req.body;
 
-  // check body for email and password
   checkEmailPassword(email, password, res);
 
   try {
     // Create a new user in Firebase Authentication
     const userData = await userCollection.register(email, password);
     if (userData) {
-      // Use Firebase Client SDK to sign in and generate a token
       const userLogin = await userCollection.login(email, password);
       res.status(200).json({
         email,
@@ -68,8 +66,6 @@ export const register = async (req: Request, res: Response) => {
 
 export const login = async (req: Request, res: Response) => {
   const { email, password } = req.body;
-
-  // check body for email and password
   checkEmailPassword(email, password, res);
 
   try {

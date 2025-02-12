@@ -4,7 +4,6 @@ import rootReducer from "./reducer";
 
 // Create a logger middleware
 const logger = createLogger({
-  // Customize the logger options if needed
   collapsed: true, // Collapse log messages
   diff: true, // Show the difference between the previous and next state
 });
@@ -19,7 +18,7 @@ const store = configureStore({
       middleware.push(logger);
     }
     return middleware;
-  }, // Add logger to the middleware
+  },
 });
 
 export type RootState = ReturnType<typeof store.getState>;

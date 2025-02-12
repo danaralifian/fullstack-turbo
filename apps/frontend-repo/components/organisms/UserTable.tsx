@@ -1,12 +1,8 @@
 "use client"
 
 import type React from "react"
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, CircularProgress, Grid } from "@mui/material"
-import { useDispatch, useSelector } from 'react-redux';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, CircularProgress } from "@mui/material"
 import { Button } from "../atoms/Button"
-import { useEffect } from "react"
-import { fetchUser } from "../../store/action"
-import { AppDispatch, RootState } from "../../store/store";
 import IUser from "@repo/interfaces/models/user";
 import IUserState from "@repo/interfaces/states/user";
 

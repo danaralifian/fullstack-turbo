@@ -11,16 +11,16 @@ export const authMiddleware = async (
 
     if (!authHeader || !authHeader.startsWith("Bearer ")) {
       res.status(401).json({ message: "Unauthorized" });
-      return; // Ensure we don't proceed further
+      return;
     }
 
     const token = authHeader.split(" ")[1];
     const decodedToken = await admin.auth().verifyIdToken(token);
-    req.user = decodedToken; // Attach user data to request
+    req.user = decodedToken;
 
-    next(); // Move to the next middleware/route handler
+    next();
   } catch (error) {
     res.status(403).json({ message: "Forbidden", error: error });
-    return; // Ensure proper function termination
+    return;
   }
 };

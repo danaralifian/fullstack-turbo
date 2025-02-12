@@ -14,21 +14,16 @@ export const userCollection = {
     // Fetch all documents in the USERS collection
     const usersSnapshot = await usersCollection.get();
 
-    // Create an array to hold user data
     const users: IUser[] = [];
 
-    // Iterate through each document in the snapshot
     usersSnapshot.forEach((userDoc) => {
-      // Push the user data along with the document ID
       users.push({ id: userDoc.id, ...userDoc.data() } as IUser);
     });
 
-    // Return the array of users
     return users;
   },
 
   register: async (email: string, password: string) => {
-    // Create a new user in Firebase Authentication
     const userRecord = await auth().createUser({
       email,
       password,
@@ -39,7 +34,6 @@ export const userCollection = {
   },
 
   login: async (email: string, password: string) => {
-    // Use Firebase Client SDK to sign in and generate a custom token
     const response = await fetch(
       "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAw0dmX0bM41rRyvtXSeQs5iY0Ioyn2oUY",
       {
