@@ -11,5 +11,5 @@
     "typeRoots": ["./node_module/@types", "./types"],
     "moduleResolution": "nodenext"
   },
-  "include": ["functions/src"]
+  "include": ["functions"]
 }

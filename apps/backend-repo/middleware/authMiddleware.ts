@@ -16,7 +16,7 @@ export const authMiddleware = async (
 
     const token = authHeader.split(" ")[1];
     const decodedToken = await admin.auth().verifyIdToken(token);
-    req.user = decodedToken;
+    (req as any).user = decodedToken;
 
     next();
   } catch (error) {
