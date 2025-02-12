@@ -10,6 +10,11 @@ Run the following command:
 npx create-turbo@latest
 ```
 
+## Demo Account
+
+- email: johndoe@gmail.com
+- pasword: 123456
+
 ## What's inside?
 
 This Turborepo includes the following packages/apps:
@@ -23,11 +28,6 @@ This Turborepo includes the following packages/apps:
 - `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
 
 Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
-
-## Demo Account
-
-- email: johndoe@gmail.com
-- pasword: 123456
 
 ### Utilities
 
