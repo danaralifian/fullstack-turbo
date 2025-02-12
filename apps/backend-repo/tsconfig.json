@@ -1,14 +1,15 @@
 {
   "compilerOptions": {
     "target": "ES6",
-    "module": "Node16",
+    "module": "NodeNext",
     "outDir": "dist",
-    "rootDir": "./",
+    // "rootDir": "./",
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "typeRoots": ["./node_module/@types", "./types"],
-    "moduleResolution": "node16"
-  }
+    "moduleResolution": "nodenext"
+  },
+  "include": ["functions/src"]
 }
